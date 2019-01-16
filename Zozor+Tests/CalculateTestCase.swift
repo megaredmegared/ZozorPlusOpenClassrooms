@@ -13,12 +13,12 @@ class CalculateTestCase: XCTestCase {
     var calculate: Calculate!
     
     func testGiven2_WhenAdding4_ThenResultIs6() {
-    calculate.stringNumbers = ["2"]
+    calculate.stringNumbers.append("2")
         
-    calculate.operators = ["+"]
+    calculate.operators.append("+")
     calculate.stringNumbers.append("4")
         
-    XCTAssertEqual(calculate.total(), 6)
+    XCTAssertEqual(calculate.total(), 6.0)
     }
 
 }

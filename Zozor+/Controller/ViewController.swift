@@ -11,39 +11,32 @@ import UIKit
 class ViewController: UIViewController {
     // MARK: - Properties
     var calculate = Calculate()
-
+   
 //    var index = 0 // not used ?????
 
     var isExpressionCorrect: Bool {
         if let stringNumber = calculate.stringNumbers.last {
             if stringNumber.isEmpty {
                 if calculate.stringNumbers.count == 1 {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
+                    alertMessage("Démarrez un nouveau calcul !")
                 } else {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
+                    alertMessage("Entrez une expression correcte !")
                 }
                 return false
             }
         }
         return true
     }
-
+    
     var canAddOperator: Bool {
         if let stringNumber = calculate.stringNumbers.last {
             if stringNumber.isEmpty {
-                let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertVC, animated: true, completion: nil)
+                alertMessage("Expression incorrecte !")
                 return false
             }
         }
         return true
     }
-
 
     // MARK: - Outlets
 
@@ -99,6 +92,11 @@ class ViewController: UIViewController {
 
 
     // MARK: - Methods
+    private func alertMessage(_ message: String) {
+        let alertVC = UIAlertController(title: "Zéro!", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
 
     func addNewNumber(_ newNumber: Int) {
         if let stringNumber = calculate.stringNumbers.last {
@@ -116,7 +114,7 @@ class ViewController: UIViewController {
         let total = calculate.total()
         textView.text = textView.text + "=\(total)"
 
-        clear()
+        calculate.clear()
     }
 
     func updateDisplay() {
@@ -130,11 +128,5 @@ class ViewController: UIViewController {
             text += stringNumber
         }
         textView.text = text
-    }
-
-    func clear() {
-        calculate.stringNumbers = [String()]
-        calculate.operators = ["+"]
-//        index = 0
     }
 }

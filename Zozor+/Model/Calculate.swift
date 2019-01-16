@@ -11,7 +11,7 @@ import Foundation
 class Calculate {
     var operators: [String] = ["+"]
     var stringNumbers: [String] = [String()]
-    
+        
     func total() -> Double {
         var total: Double = 0
         for (i, stringNumber) in stringNumbers.enumerated() {
@@ -29,5 +29,11 @@ class Calculate {
             }
         }
         return total
+    }
+    
+    func clear() {
+        stringNumbers = [String()]
+        operators = ["+"]
+        //        index = 0
     }
 }
