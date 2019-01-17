@@ -28,10 +28,11 @@ class Calculate {
                 }
             }
         }
+        clear()
         return total
     }
     
-    func clear() {
+    private func clear() {
         stringNumbers = [String()]
         operators = ["+"]
         //        index = 0

@@ -113,8 +113,6 @@ class ViewController: UIViewController {
         }
         let total = calculate.total()
         textView.text = textView.text + "=\(total)"
-
-        calculate.clear()
     }
 
     func updateDisplay() {
