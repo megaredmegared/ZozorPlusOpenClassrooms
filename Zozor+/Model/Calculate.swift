@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Logical implementation of a calculator
 class Calculate {
     var operators: [String] = ["+"]
     var stringNumbers: [String] = [String()]
