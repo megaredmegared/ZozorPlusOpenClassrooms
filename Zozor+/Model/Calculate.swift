@@ -11,11 +11,48 @@ import Foundation
 class Calculate {
     var operators: [String] = ["+"]
     var stringNumbers: [String] = [String()]
-        
-    func total() -> Double {
+
+    var isExpressionCorrect: Bool {
+        if let stringNumber = stringNumbers.last {
+            if stringNumber.isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+    
+    var canAddOperator: Bool {
+        if let stringNumber = stringNumbers.last {
+            if stringNumber.isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func addNewOperator(_ newOperator: String) throws {
+        guard canAddOperator else {
+            throw CalculateError.cantAddOperator
+        }
+        operators.append(newOperator)
+        stringNumbers.append("")
+    }
+    
+    func addNewNumber(_ newNumber: Int) {
+        if let stringNumber = stringNumbers.last {
+            var stringNumberMutable = stringNumber
+            stringNumberMutable += "\(newNumber)"
+            stringNumbers[stringNumbers.count-1] = stringNumberMutable
+        }
+    }
+    
+    func total() throws -> Double {
+        guard isExpressionCorrect else {
+            throw CalculateError.expressionIncorrect
+        }
         var total: Double = 0
+        
         for (i, stringNumber) in stringNumbers.enumerated() {
-            
             if let number = Double(stringNumber) {
                 if operators[i] == "+" {
                     total += number
@@ -35,6 +72,5 @@ class Calculate {
     private func clear() {
         stringNumbers = [String()]
         operators = ["+"]
-        //        index = 0
     }
 }
