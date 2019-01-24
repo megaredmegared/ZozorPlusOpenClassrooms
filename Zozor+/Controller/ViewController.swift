@@ -82,6 +82,8 @@ class ViewController: UIViewController {
             } else {
                 alertMessage("Entrez une expression correcte !")
             }
+        } catch CalculateError.cantDivideBy0 {
+            textView.text = textView.text + "= Error Divide by 0"
         } catch {
             print("calculateTotal Unknow error")
         }

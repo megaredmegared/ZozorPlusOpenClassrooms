@@ -11,7 +11,7 @@ import Foundation
 class Calculate {
     var operators: [String] = ["+"]
     var stringNumbers: [String] = [String()]
-
+    
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -50,20 +50,45 @@ class Calculate {
         guard isExpressionCorrect else {
             throw CalculateError.expressionIncorrect
         }
-        var total: Double = 0
+        var total = 0.0
+        var subTotal = 0.0
+        var numbers = [0.0]
         
+        // calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
-                if operators[i] == "+" {
-                    total += number
-                } else if operators[i] == "-" {
-                    total -= number
-                } else if operators[i] == "÷" {
-                    total /= number
+                guard operators[i] == "÷" && number != 0 else {
+                    throw CalculateError.cantDivideBy0
+                }
+                if operators[i] == "+" && operators[i+1] != "x" && operators[i+1] != "÷" {
+                    numbers.append(number)
+                } else if operators[i] == "-" && operators[i+1] != "x" && operators[i+1] != "÷" {
+                    numbers.append(-number)
+                } else if operators[i] == "x" && operators[i-1] != "+" && operators[i-1] != "-" {
+                    subTotal = number * numbers.last!
+                    numbers[numbers.count-1] = subTotal
+                } else if operators[i] == "x" && operators[i-1] == "-" {
+                    subTotal = number * Double(stringNumbers[i-1])!
+                    numbers.append(-subTotal)
                 } else if operators[i] == "x" {
-                    total *= number
+                    subTotal = number * Double(stringNumbers[i-1])!
+                    numbers.append(subTotal)
+                } else if operators[i] == "÷" && operators[i-1] != "+" && operators[i-1] != "-" {
+                    subTotal = numbers.last! / number
+                    numbers[numbers.count-1] = subTotal
+                } else if operators[i] == "÷" && operators[i-1] == "-"  {
+                    subTotal = Double(stringNumbers[i-1])! / number
+                    numbers.append(-subTotal)
+                } else if operators[i] == "÷" {
+                    subTotal = Double(stringNumbers[i-1])! / number
+                    numbers.append(subTotal)
                 }
             }
+        }
+        
+        // calculate total
+        for i in numbers {
+            total += i
         }
         clear()
         return total
