@@ -57,31 +57,20 @@ class Calculate {
         // calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
-                guard operators[i] == "÷" && number != 0 else {
-                    throw CalculateError.cantDivideBy0
-                }
-                if operators[i] == "+" && operators[i+1] != "x" && operators[i+1] != "÷" {
+                if operators[i] == "+" {
                     numbers.append(number)
-                } else if operators[i] == "-" && operators[i+1] != "x" && operators[i+1] != "÷" {
+                } else if operators[i] == "-" {
                     numbers.append(-number)
-                } else if operators[i] == "x" && operators[i-1] != "+" && operators[i-1] != "-" {
-                    subTotal = number * numbers.last!
-                    numbers[numbers.count-1] = subTotal
-                } else if operators[i] == "x" && operators[i-1] == "-" {
-                    subTotal = number * Double(stringNumbers[i-1])!
-                    numbers.append(-subTotal)
                 } else if operators[i] == "x" {
-                    subTotal = number * Double(stringNumbers[i-1])!
-                    numbers.append(subTotal)
-                } else if operators[i] == "÷" && operators[i-1] != "+" && operators[i-1] != "-" {
+                    subTotal = numbers.last! * number
+                    numbers[numbers.count-1] = subTotal
+                } else if operators[i] == "÷" {
+                    guard number != 0 else {
+                        clear()
+                        throw CalculateError.cantDivideBy0
+                    }
                     subTotal = numbers.last! / number
                     numbers[numbers.count-1] = subTotal
-                } else if operators[i] == "÷" && operators[i-1] == "-"  {
-                    subTotal = Double(stringNumbers[i-1])! / number
-                    numbers.append(-subTotal)
-                } else if operators[i] == "÷" {
-                    subTotal = Double(stringNumbers[i-1])! / number
-                    numbers.append(subTotal)
                 }
             }
         }
