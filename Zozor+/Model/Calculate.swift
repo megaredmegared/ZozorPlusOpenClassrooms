@@ -34,7 +34,7 @@ class Calculate {
     var canAddDecimalSeparator: Bool {
         for separator in stringNumbers.last! {
             if separator == "." {
-            return false
+                return false
             }
         }
         return true
@@ -76,47 +76,43 @@ class Calculate {
         }
     }
     
-    func total() throws -> Double {
+    func total() throws -> Decimal {
         guard isExpressionCorrect else {
             throw CalculateError.expressionIncorrect
         }
-
-        var subTotal = 0.0
-        var numbers = [0.0]
+        
+        var numbers = [Decimal(floatLiteral: 0.0)]
         
         // calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
                 if let lastNumber = numbers.last {
                     if operators[i] == "+" {
-                        numbers.append(number)
+                        numbers.append(Decimal(floatLiteral: number))
                     } else if operators[i] == "-" {
-                        numbers.append(-number)
-                    } else if operators[i] == "x" {
-                        subTotal = lastNumber * number
-                        numbers[numbers.count-1] = subTotal
+                        numbers.append(Decimal(floatLiteral: -number))
+                    }
+                    else if operators[i] == "x" {
+                        numbers[numbers.count-1] = lastNumber * Decimal(floatLiteral: number)
                     } else if operators[i] == "÷" {
                         guard number != 0 else {
                             clear()
                             throw CalculateError.cantDivideBy0
                         }
-                        subTotal = lastNumber / number
-                        numbers[numbers.count-1] = subTotal
+                        numbers[numbers.count-1] = lastNumber / Decimal(floatLiteral: number)
                     }
-                } else {
+                }
+                else {
                     print("Error number.last out of range")
                 }
             }
         }
-    
-        print(stringNumbers)
-        print(operators)
-        print(numbers)
+ 
         clear()
         // return the sum of numbers
-        return numbers.reduce(0.0, +)
+        return numbers.reduce(Decimal(floatLiteral: 0.0), +)
     }
-    
+    /// Put back in starting setup
     private func clear() {
         stringNumbers = [String()]
         operators = ["+"]
