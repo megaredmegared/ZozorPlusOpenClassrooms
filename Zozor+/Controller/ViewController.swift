@@ -15,17 +15,19 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
+    // TODO: No need for this outlet ?
     @IBOutlet var numberButtons: [UIButton]!
     
     // MARK: - Action
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        for (i, numberButton) in numberButtons.enumerated() {
-            print("\(i): '\(numberButton)'")
-            if sender == numberButton {
-                addNewNumber(i)
-            }
+        if let number = Int(sender.currentTitle!) {
+                addNewNumber(number)
         }
+    }
+    
+    @IBAction func decimalSeparator(_ sender: UIButton) {
+        addDecimalSeparator(sender.currentTitle!)
     }
     
     @IBAction func plus() {
@@ -72,6 +74,18 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
+    private func addDecimalSeparator(_ separator: String) {
+        do {
+            try calculate.addDecimalSeparator(separator)
+            
+        } catch CalculateError.cantAddDecimalSeparator {
+            alertMessage("Il y a déjà une virgule")
+        } catch {
+            print("addDecimalSeparator Unknow error")
+        }
+        updateDisplay()
+    }
+    
     private func calculateTotal() {
         do {
             let total = try calculate.total()
@@ -99,9 +113,6 @@ class ViewController: UIViewController {
             // Add number
             text += stringNumber
         }
-        textView.text = text
-        print(calculate.stringNumbers) // remove after test
-        print(calculate.operators) // remove after test
-        
+        textView.text = text        
     }
 }

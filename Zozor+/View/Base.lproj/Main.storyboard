@@ -27,7 +27,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8G-zY-AZL">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="148"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="1+1=2" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CT0-fb-Raf">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="0" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="CT0-fb-Raf">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="148"/>
                                                 <color key="backgroundColor" red="0.24527746819999999" green="0.53481305040000005" blue="0.58749136739999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -127,7 +127,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e5M-ww-B3O">
-                                                <rect key="frame" x="198.5" y="0.0" width="89.5" height="152"/>
+                                                <rect key="frame" x="198.5" y="0.0" width="89.5" height="206"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iN-WA-tqI">
                                                         <rect key="frame" x="0.0" y="0.0" width="89.5" height="44"/>
@@ -160,6 +160,17 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="tappedNumberButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="53k-G2-qfp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jU9-Ni-TDz">
+                                                        <rect key="frame" x="0.0" y="162" width="89.5" height="44"/>
+                                                        <color key="backgroundColor" red="0.60392156860000001" green="0.57647058819999997" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                        <state key="normal" title=".">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="decimalSeparator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s4E-vH-gqL"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -242,16 +253,16 @@
                     </view>
                     <connections>
                         <outlet property="textView" destination="CT0-fb-Raf" id="Xeg-bt-oOS"/>
-                        <outletCollection property="numberButtons" destination="86l-DO-J8m" collectionClass="NSMutableArray" id="UH7-qV-o59"/>
                         <outletCollection property="numberButtons" destination="nZA-hS-XZt" collectionClass="NSMutableArray" id="bML-5w-YQ6"/>
                         <outletCollection property="numberButtons" destination="p3X-cI-gqf" collectionClass="NSMutableArray" id="1Wm-Sb-Chv"/>
                         <outletCollection property="numberButtons" destination="5iN-WA-tqI" collectionClass="NSMutableArray" id="lI2-j5-yQI"/>
                         <outletCollection property="numberButtons" destination="GgJ-QU-2gW" collectionClass="NSMutableArray" id="7un-dv-Pgd"/>
                         <outletCollection property="numberButtons" destination="fdG-Q6-4Mj" collectionClass="NSMutableArray" id="oD5-2O-S9O"/>
-                        <outletCollection property="numberButtons" destination="zx3-qU-jRo" collectionClass="NSMutableArray" id="quk-9a-bau"/>
                         <outletCollection property="numberButtons" destination="57K-hd-XBz" collectionClass="NSMutableArray" id="Slt-e2-5la"/>
                         <outletCollection property="numberButtons" destination="cKJ-lP-BeQ" collectionClass="NSMutableArray" id="ZU7-6M-xTS"/>
                         <outletCollection property="numberButtons" destination="6uw-jf-qlX" collectionClass="NSMutableArray" id="DYj-cy-rJ7"/>
+                        <outletCollection property="numberButtons" destination="zx3-qU-jRo" collectionClass="NSMutableArray" id="quk-9a-bau"/>
+                        <outletCollection property="numberButtons" destination="86l-DO-J8m" collectionClass="NSMutableArray" id="UH7-qV-o59"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
