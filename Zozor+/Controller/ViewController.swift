@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: - Properties
+    
     var calculate = Calculate()
     
     // MARK: - Outlets
@@ -20,38 +21,46 @@ class ViewController: UIViewController {
     
     // MARK: - Action
     
+    /// Number button tapped
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         if let number = Int(sender.currentTitle!) {
                 addNewNumber(number)
         }
     }
     
+    /// Decimal separator tapped
     @IBAction func decimalSeparator(_ sender: UIButton) {
         addDecimalSeparator(sender.currentTitle!)
     }
     
+    /// + button tapped
     @IBAction func plus() {
         addOperator("+")
     }
     
+     /// - button tapped
     @IBAction func minus() {
         addOperator("-")
     }
     
+     /// x button tapped
     @IBAction func multiply() {
         addOperator("x")
     }
     
+     /// ÷ button tapped
     @IBAction func divide() {
         addOperator("÷")
     }
     
+     /// = button tapped
     @IBAction func equal() {
         calculateTotal()
     }
     
-    
     // MARK: - Methods
+    
+    /// Add operator and/or display error message for that action
     private func addOperator(_ newOperator: String) {
         do {
             try calculate.addNewOperator(newOperator)
@@ -63,17 +72,20 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Alert message formating
     private func alertMessage(_ message: String) {
         let alertVC = UIAlertController(title: "Zéro!", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
     
+    /// Add a new number
     private func addNewNumber(_ newNumber: Int) {
         calculate.addNewNumber(newNumber)
         updateDisplay()
     }
     
+    /// Add a decimal separator and/or display error message for that action
     private func addDecimalSeparator(_ separator: String) {
         do {
             try calculate.addDecimalSeparator(separator)
@@ -86,6 +98,7 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
+    /// Calculate the total of the operations
     private func calculateTotal() {
         do {
             let total = try calculate.total()
@@ -103,6 +116,7 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Update the display when something is tapped
     private func updateDisplay() {
         var text = ""
         for (i, stringNumber) in calculate.stringNumbers.enumerated() {

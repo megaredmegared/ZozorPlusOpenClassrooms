@@ -13,6 +13,7 @@ class Calculate {
     var stringNumbers: [String] = [String()]
     var decimalSeparator = ""
     
+    /// A Bool that check if we can add a number
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -22,6 +23,7 @@ class Calculate {
         return true
     }
     
+    /// A Bool that check if we can add an operator
     var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -31,6 +33,7 @@ class Calculate {
         return true
     }
     
+    /// A Bool that check if we can add a decimal separator
     var canAddDecimalSeparator: Bool {
         for separator in stringNumbers.last! {
             if separator == "." {
@@ -40,6 +43,7 @@ class Calculate {
         return true
     }
     
+    /// Add an operator and trigger an error if it is not possible
     func addNewOperator(_ newOperator: String) throws {
         guard canAddOperator else {
             throw CalculateError.cantAddOperator
@@ -51,6 +55,7 @@ class Calculate {
         decimalSeparator = ""
     }
     
+    /// Add a decimal separator and triggger an error if it is not possible
     func addDecimalSeparator(_ separator: String) throws {
         guard canAddDecimalSeparator else {
             throw CalculateError.cantAddDecimalSeparator
@@ -68,6 +73,7 @@ class Calculate {
         clearDecimalSeparator()
     }
     
+    /// Add a number
     func addNewNumber(_ newNumber: Int) {
         if let stringNumber = stringNumbers.last {
             var stringNumberMutable = stringNumber
@@ -76,30 +82,31 @@ class Calculate {
         }
     }
     
+    /// Calculation of the total of the operations with Decimal for precise math operations
     func total() throws -> Decimal {
         guard isExpressionCorrect else {
             throw CalculateError.expressionIncorrect
         }
-        
-        var numbers = [Decimal(floatLiteral: 0.0)]
+   
+        var numbers: [Decimal] = [0]
         
         // calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Double(stringNumber) {
+            if let number = Decimal(string: stringNumber) {
                 if let lastNumber = numbers.last {
                     if operators[i] == "+" {
-                        numbers.append(Decimal(floatLiteral: number))
+                        numbers.append(number)
                     } else if operators[i] == "-" {
-                        numbers.append(Decimal(floatLiteral: -number))
+                        numbers.append(-number)
                     }
                     else if operators[i] == "x" {
-                        numbers[numbers.count-1] = lastNumber * Decimal(floatLiteral: number)
+                        numbers[numbers.count-1] = lastNumber * number
                     } else if operators[i] == "÷" {
                         guard number != 0 else {
                             clear()
                             throw CalculateError.cantDivideBy0
                         }
-                        numbers[numbers.count-1] = lastNumber / Decimal(floatLiteral: number)
+                        numbers[numbers.count-1] = lastNumber / number
                     }
                 }
                 else {
@@ -110,8 +117,9 @@ class Calculate {
  
         clear()
         // return the sum of numbers
-        return numbers.reduce(Decimal(floatLiteral: 0.0), +)
+        return numbers.reduce(Decimal(0), +)
     }
+    
     /// Put back in starting setup
     private func clear() {
         stringNumbers = [String()]
