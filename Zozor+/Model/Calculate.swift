@@ -9,8 +9,8 @@
 import Foundation
 
 class Calculate {
-    var operators: [String] = ["+"]
-    var stringNumbers: [String] = [String()]
+    var operators = ["+"]
+    var stringNumbers = [""]
     var decimalSeparator = ""
     
     /// A Bool that check if we can add a number
@@ -51,6 +51,8 @@ class Calculate {
         operators.append(newOperator)
         stringNumbers.append("")
     }
+    
+    /// Clear the decimal operator
     func clearDecimalSeparator() {
         decimalSeparator = ""
     }
@@ -85,7 +87,11 @@ class Calculate {
     /// Calculation of the total of the operations with Decimal for precise math operations
     func total() throws -> Decimal {
         guard isExpressionCorrect else {
-            throw CalculateError.expressionIncorrect
+            if stringNumbers.count == 1 {
+                throw CalculateError.expressionIncorrectStartNewOperation
+            } else {
+                throw CalculateError.expressionIncorrect
+            }
         }
    
         var numbers: [Decimal] = [0]
@@ -109,9 +115,6 @@ class Calculate {
                         numbers[numbers.count-1] = lastNumber / number
                     }
                 }
-                else {
-                    print("Error number.last out of range")
-                }
             }
         }
  
@@ -120,9 +123,10 @@ class Calculate {
         return numbers.reduce(Decimal(0), +)
     }
     
-    /// Put back in starting setup
-    private func clear() {
+    /// Put back in starting setup state
+    func clear() {
         stringNumbers = [String()]
         operators = ["+"]
+        clearDecimalSeparator()
     }
 }

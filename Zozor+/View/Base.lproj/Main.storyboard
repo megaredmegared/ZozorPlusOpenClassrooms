@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="175" width="288" height="270"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GZQ-ZL-Chx">
-                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="152"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="206"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZA-hS-XZt">
                                                         <rect key="frame" x="0.0" y="0.0" width="89.5" height="44"/>
@@ -73,6 +73,17 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="tappedNumberButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7hZ-6T-Kxw"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVw-el-JcA">
+                                                        <rect key="frame" x="0.0" y="162" width="89.5" height="44"/>
+                                                        <color key="backgroundColor" red="0.60392156860000001" green="0.57647058819999997" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                        <state key="normal" title="AC">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clear" destination="BYZ-38-t0r" eventType="touchUpInside" id="G2V-Gt-Zxk"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

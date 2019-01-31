@@ -58,6 +58,12 @@ class ViewController: UIViewController {
         calculateTotal()
     }
     
+    /// clear button tapped
+    @IBAction func clear() {
+        calculate.clear()
+        textView.text = "0"
+    }
+    
     // MARK: - Methods
     
     /// Add operator and/or display error message for that action
@@ -104,11 +110,9 @@ class ViewController: UIViewController {
             let total = try calculate.total()
             textView.text = textView.text + "=\(total)"
         } catch CalculateError.expressionIncorrect {
-            if calculate.stringNumbers.count == 1 {
-                alertMessage("Démarrez un nouveau calcul !")
-            } else {
-                alertMessage("Entrez une expression correcte !")
-            }
+            alertMessage("Entrez une expression correcte !")
+        } catch CalculateError.expressionIncorrectStartNewOperation {
+            alertMessage("Démarrez un nouveau calcul !")
         } catch CalculateError.cantDivideBy0 {
             textView.text = textView.text + "= Error Divide by 0"
         } catch {
