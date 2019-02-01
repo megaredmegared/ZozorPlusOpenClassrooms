@@ -42,7 +42,7 @@ class CalculateTestCase: XCTestCase {
     /// testing adding a decimal separator when there is already one should trigger an error
     func testGivenAddedNumberIs4Point2_WhenAddingDecimalSeparator_ThenTriggerCantAddDecimalSeparatorError() {
         calculate.stringNumbers.append("4.2")
-        // TODO: check for an error
+        
         XCTAssertThrowsError( try calculate.addDecimalSeparator("x")) { error in
             XCTAssertEqual(error as! CalculateError, CalculateError.cantAddDecimalSeparator)
         }
@@ -68,6 +68,16 @@ class CalculateTestCase: XCTestCase {
         calculate.stringNumbers.append("0.2")
         
         XCTAssertEqual(try calculate.total(), 0.3)
+    }
+    //TODO: delete this operation
+    /// testing of addition 2
+    func testGivenNumberIs0Point13_WhenAdding0Point2_ThenResultIs0Point3() {
+        calculate.stringNumbers = ["4.1"]
+        
+        calculate.operators.append("+")
+        calculate.stringNumbers.append("4.3302")
+        
+        XCTAssertEqual(try calculate.total(), 8.4302)
     }
     
     /// testing of multiplication
