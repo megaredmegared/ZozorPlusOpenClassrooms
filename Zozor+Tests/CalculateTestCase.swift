@@ -134,9 +134,10 @@ class CalculateTestCase: XCTestCase {
     func testGivenCalculIs4Multiply_WhenTryToMakeCalculation_ThenTriggerAnExpressionIncorrectError() {
         calculate.stringNumbers = ["4"]
         try! calculate.addNewOperator("x")
-        
+     
         XCTAssertThrowsError(try calculate.total()) { error in
             XCTAssertEqual(error as! CalculateError, CalculateError.expressionIncorrect)
         }
     }
+    
 }

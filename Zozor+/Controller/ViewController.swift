@@ -16,8 +16,6 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
-    // TODO: No need for this outlet ?
-    @IBOutlet var numberButtons: [UIButton]!
     
     // MARK: - Action
     
@@ -108,7 +106,7 @@ class ViewController: UIViewController {
     private func calculateTotal() {
         do {
             let total = try calculate.total()
-            textView.text = textView.text + "=\(total)"
+            textView.text = textView.text + "\n=\n\(total)"
         } catch CalculateError.expressionIncorrect {
             alertMessage("Entrez une expression correcte !")
         } catch CalculateError.expressionIncorrectStartNewOperation {
