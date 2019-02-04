@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         calculateTotal()
     }
     
-    /// clear button tapped
+    /// Clear button tapped
     @IBAction func clear() {
         calculate.clear()
         textView.text = "0"
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
     
     // MARK: - Methods
     
-    /// Add operator and/or display error message for that action
+    /// Add operator or display error message if not possible
     private func addOperator(_ newOperator: String) {
         do {
             try calculate.addNewOperator(newOperator)
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
-    /// Add a decimal separator and/or display error message for that action
+    /// Add a decimal separator or display error message if not possible
     private func addDecimalSeparator(_ separator: String) {
         do {
             try calculate.addDecimalSeparator(separator)
@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
-    /// Calculate the total of the operations
+    /// Calculate the total of the operations or display error message if not possible
     private func calculateTotal() {
         do {
             let total = try calculate.total()

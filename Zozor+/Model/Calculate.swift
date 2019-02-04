@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// Contain all the functions for the calcul to work properly
 class Calculate {
+    /// Contain all the operators tapped for the calcul
     var operators = ["+"]
+    /// Contain all the numbers tapped for the calcul
     var stringNumbers = [""]
+    /// Contain the decimal separator
     var decimalSeparator = ""
     
     /// A Bool that check if we can add a number
@@ -96,7 +100,7 @@ class Calculate {
    
         var numbers: [Decimal] = [0]
         
-        // calculate with priorities
+        // Calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Decimal(string: stringNumber) {
                 if let lastNumber = numbers.last {
@@ -119,7 +123,7 @@ class Calculate {
         }
  
         clear()
-        // return the sum of numbers
+        // Return the sum of numbers. It add to 0 all the numbers in the numbers array
         return numbers.reduce(Decimal(0), +)
     }
     

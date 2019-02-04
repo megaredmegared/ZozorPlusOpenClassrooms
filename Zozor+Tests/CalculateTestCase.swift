@@ -17,7 +17,7 @@ class CalculateTestCase: XCTestCase {
         calculate = Calculate()
     }
     
-    // testing of adding decimal separator at start should put a 0 before the separator
+    /// Testing of adding decimal separator at start should put a 0 before the separator
     func testGivenNumberIsVoid_WhenAddingDecimalSeparatorAnd6_ThenNumbersIs0Point6() {
         calculate.stringNumbers = [""]
         
@@ -28,7 +28,7 @@ class CalculateTestCase: XCTestCase {
     }
     
     
-    /// testing of adding numbers with decimal separator
+    /// Testing of adding numbers with decimal separator
     func testGivenNumberIs4_WhenAddingDecimalSeparatorAnd6_ThenStringNumbersIs4Point6() {
         calculate.stringNumbers = ["4"]
         
@@ -39,7 +39,7 @@ class CalculateTestCase: XCTestCase {
         
     }
     
-    /// testing adding a decimal separator when there is already one should trigger an error
+    /// Testing adding a decimal separator when there is already one should trigger an error
     func testGivenAddedNumberIs4Point2_WhenAddingDecimalSeparator_ThenTriggerCantAddDecimalSeparatorError() {
         calculate.stringNumbers.append("4.2")
         
@@ -48,7 +48,7 @@ class CalculateTestCase: XCTestCase {
         }
     }
     
-    /// testing divide by 0 trigger an error
+    /// Testing divide by 0 trigger an error
     func testGivenNumberIs5_WhenDivideBy0_ThenTriggerADivideBy0Error() {
         calculate.stringNumbers = ["5"]
         
@@ -60,7 +60,7 @@ class CalculateTestCase: XCTestCase {
         }
     }
     
-    /// testing of addition
+    /// Testing of addition
     func testGivenNumberIs0Point1_WhenAdding0Point2_ThenResultIs0Point3() {
         calculate.stringNumbers = ["0.1"]
         
@@ -69,18 +69,8 @@ class CalculateTestCase: XCTestCase {
         
         XCTAssertEqual(try calculate.total(), 0.3)
     }
-    //TODO: delete this operation
-    /// testing of addition 2
-    func testGivenNumberIs0Point13_WhenAdding0Point2_ThenResultIs0Point3() {
-        calculate.stringNumbers = ["4.1"]
-        
-        calculate.operators.append("+")
-        calculate.stringNumbers.append("4.3302")
-        
-        XCTAssertEqual(try calculate.total(), 8.4302)
-    }
     
-    /// testing of multiplication
+    /// Testing of multiplication
     func testGivenNumberIs4Point2_WhenMultiplyBy4Point5_ThenResultIs8() {
         calculate.stringNumbers = ["4.2"]
         
@@ -90,7 +80,7 @@ class CalculateTestCase: XCTestCase {
         XCTAssertEqual(try calculate.total(), 18.9)
     }
     
-    /// testing of division
+    /// Testing of division
     func testGivenNumberIs4Point2_DivideBy4Point5_ThenResultIs0Point84() {
         calculate.stringNumbers = ["4.2"]
         
@@ -100,7 +90,7 @@ class CalculateTestCase: XCTestCase {
         XCTAssertEqual(try calculate.total(), 0.84)
     }
     
-    /// testing of substraction
+    /// Testing of substraction
     func testGivenNumberIs23_WhenSubtracting12_ThenResultIs11() {
         calculate.stringNumbers = ["23"]
         
@@ -110,7 +100,7 @@ class CalculateTestCase: XCTestCase {
         XCTAssertEqual(try calculate.total(), 11)
     }
     
-    /// testing the clear action
+    /// Testing the clear action
     func testGivenNumberIs23Point12_WhenClear_ThenNumberIsAVoidString() {
         calculate.stringNumbers = ["23"]
         
@@ -121,7 +111,7 @@ class CalculateTestCase: XCTestCase {
         XCTAssertEqual(calculate.decimalSeparator, "")
     }
     
-    /// testing throw an error if we try to put a second operator
+    /// Testing throw an error if we try to put a second operator
     func testGivenCalculIs4Multiply_WhenAddingAnewOperator_ThenAErrorMessageIsTriggered() {
         calculate.stringNumbers = ["4"]
         try! calculate.addNewOperator("x")
@@ -131,7 +121,7 @@ class CalculateTestCase: XCTestCase {
         }
     }
     
-    /// testing throw an error if we try to calculate total and there is no number
+    /// Testing throw an error if we try to calculate total and there is no number
     func testGivenThereIsNoNumber_WhenTryToMakeCalculation_ThenTriggerAnExpressionIncorrectStartNewOperationError() {
         calculate.stringNumbers = [""]
         
@@ -140,14 +130,13 @@ class CalculateTestCase: XCTestCase {
         }
     }
     
-    /// testing throw an error if we try to calculate total and there is no number at the end of operation
+    /// Testing throw an error if we try to calculate total and there is no number at the end of operation
     func testGivenCalculIs4Multiply_WhenTryToMakeCalculation_ThenTriggerAnExpressionIncorrectError() {
         calculate.stringNumbers = ["4"]
         try! calculate.addNewOperator("x")
-     
+        
         XCTAssertThrowsError(try calculate.total()) { error in
             XCTAssertEqual(error as! CalculateError, CalculateError.expressionIncorrect)
         }
     }
-    
 }
