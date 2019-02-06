@@ -90,6 +90,18 @@ class CalculateTestCase: XCTestCase {
         XCTAssertEqual(try calculate.total(), 0.84)
     }
     
+    /// Testing of a division with float number and then multiplication to retrive first number
+    func testGiven1DividedBy3_WhenMultiplyBy3_ThenResultIs1() {
+        calculate.stringNumbers = ["1"]
+        calculate.operators.append("÷")
+        calculate.stringNumbers.append("3")
+        
+        calculate.operators.append("x")
+        calculate.stringNumbers.append("3")
+        
+        XCTAssertEqual(try calculate.total(), 1)
+    }
+    
     /// Testing of substraction
     func testGivenNumberIs23_WhenSubtracting12_ThenResultIs11() {
         calculate.stringNumbers = ["23"]

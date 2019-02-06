@@ -98,11 +98,11 @@ class Calculate {
             }
         }
    
-        var numbers: [Decimal] = [0]
+        var numbers: [Double] = [0]
         
         // Calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Decimal(string: stringNumber) {
+            if let number = Double(stringNumber) {
                 if let lastNumber = numbers.last {
                     if operators[i] == "+" {
                         numbers.append(number)
@@ -123,8 +123,8 @@ class Calculate {
         }
  
         clear()
-        // Return the sum of numbers. It add to 0 all the numbers in the numbers array
-        return numbers.reduce(Decimal(0), +)
+        // Return the sum of numbers then round it and transform in Decimal for correct presentation
+        return Decimal(round(1000*numbers.reduce(0.0, +))/1000)
     }
     
     /// Put back in starting setup state
