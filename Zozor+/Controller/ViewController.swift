@@ -112,7 +112,11 @@ class ViewController: UIViewController {
         } catch CalculateError.expressionIncorrectStartNewOperation {
             alertMessage("Démarrez un nouveau calcul !")
         } catch CalculateError.cantDivideBy0 {
-            textView.text = textView.text + "\n=\nError Divide by 0"
+            textView.text = textView.text + "\n=\nError\nDivide by 0"
+        } catch CalculateError.numberIsTooBig {
+            textView.text = textView.text + "\n=\nError\nNumber is too big to calculate"
+        } catch CalculateError.resultIsTooBig {
+            textView.text = textView.text + "\n=\nError\nResult is too big to calculate"
         } catch {
             print("calculateTotal Unknow error")
         }

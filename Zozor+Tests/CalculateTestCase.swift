@@ -151,4 +151,28 @@ class CalculateTestCase: XCTestCase {
             XCTAssertEqual(error as! CalculateError, CalculateError.expressionIncorrect)
         }
     }
+    
+    /// Testing throw an error if we try to calculate with too big numbers
+    func testGiven10000000000000000000000000000_WhenAdding2_ThenTriggerNumberToBigError() {
+        calculate.stringNumbers = ["10000000000000000000000000000"]
+        
+        calculate.operators.append("+")
+        calculate.stringNumbers.append("2")
+        
+        XCTAssertThrowsError(try calculate.total()) { error in
+            XCTAssertEqual(error as! CalculateError, CalculateError.numberIsTooBig)
+        }
+    }
+    
+    /// Testing throw an error if the result is too big
+    func testGiven1000000000000_WhenMultiplyBy1000000000000_ThenTriggerNumberToBigError() {
+        calculate.stringNumbers = ["1000000000000"]
+        
+        calculate.operators.append("x")
+        calculate.stringNumbers.append("1000000000000")
+        
+        XCTAssertThrowsError(try calculate.total()) { error in
+            XCTAssertEqual(error as! CalculateError, CalculateError.resultIsTooBig)
+        }
+    }
 }

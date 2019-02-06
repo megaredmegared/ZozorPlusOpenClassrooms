@@ -97,12 +97,15 @@ class Calculate {
                 throw CalculateError.expressionIncorrect
             }
         }
-       
         var numbers: [Double] = [0]
-       
+        let numberMax: Int = Int.max
         // Calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
+                // Check if number is a to big number and throw an error
+                guard number < Double(numberMax) else {
+                    throw CalculateError.numberIsTooBig
+                }
                 if let lastNumber = numbers.last {
                     if operators[i] == "+" {
                         numbers.append(number)
@@ -129,7 +132,11 @@ class Calculate {
         
         // The result of sum of numbers rounded with the precision wanted
         let result: Double = round(pow(10, precision)*numbers.reduce(0.0, +)) / pow(10, precision)
-
+        // Check if result is a to big number and throw an error
+        guard result < Double(numberMax) else {
+            throw CalculateError.resultIsTooBig
+        }
+        
         // Return the result in "String" and if the result "Double" could be a "Int" convert it to remove the decimal separator
         
         if result.truncatingRemainder(dividingBy: 1) == 0 {
