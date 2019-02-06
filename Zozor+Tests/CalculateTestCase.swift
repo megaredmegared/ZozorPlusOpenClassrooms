@@ -67,7 +67,7 @@ class CalculateTestCase: XCTestCase {
         calculate.operators.append("+")
         calculate.stringNumbers.append("0.2")
         
-        XCTAssertEqual(try calculate.total(), 0.3)
+        XCTAssertEqual(try calculate.total(), "0.3")
     }
     
     /// Testing of multiplication
@@ -77,7 +77,7 @@ class CalculateTestCase: XCTestCase {
         calculate.operators.append("x")
         calculate.stringNumbers.append("4.5")
         
-        XCTAssertEqual(try calculate.total(), 18.9)
+        XCTAssertEqual(try calculate.total(), "18.9")
     }
     
     /// Testing of division
@@ -87,7 +87,7 @@ class CalculateTestCase: XCTestCase {
         calculate.operators.append("÷")
         calculate.stringNumbers.append("5")
         
-        XCTAssertEqual(try calculate.total(), 0.84)
+        XCTAssertEqual(try calculate.total(), "0.84")
     }
     
     /// Testing of a division with float number and then multiplication to retrive first number
@@ -99,7 +99,7 @@ class CalculateTestCase: XCTestCase {
         calculate.operators.append("x")
         calculate.stringNumbers.append("3")
         
-        XCTAssertEqual(try calculate.total(), 1)
+        XCTAssertEqual(try calculate.total(), "1")
     }
     
     /// Testing of substraction
@@ -109,7 +109,7 @@ class CalculateTestCase: XCTestCase {
         calculate.operators.append("-")
         calculate.stringNumbers.append("12")
         
-        XCTAssertEqual(try calculate.total(), 11)
+        XCTAssertEqual(try calculate.total(), "11")
     }
     
     /// Testing the clear action

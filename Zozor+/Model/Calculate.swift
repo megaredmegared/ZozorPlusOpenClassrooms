@@ -89,7 +89,7 @@ class Calculate {
     }
     
     /// Calculation of the total of the operations with Decimal for precise math operations
-    func total() throws -> Decimal {
+    func total() throws -> String {
         guard isExpressionCorrect else {
             if stringNumbers.count == 1 {
                 throw CalculateError.expressionIncorrectStartNewOperation
@@ -97,9 +97,10 @@ class Calculate {
                 throw CalculateError.expressionIncorrect
             }
         }
+       
    
         var numbers: [Double] = [0]
-        
+       
         // Calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
@@ -121,10 +122,23 @@ class Calculate {
                 }
             }
         }
- 
+        
         clear()
-        // Return the sum of numbers then round it and transform in Decimal for correct presentation
-        return Decimal(round(1000*numbers.reduce(0.0, +))/1000)
+        
+        // The precision is the number of decimal after decimal separator
+        let precision: Double = 9
+        
+        // The result of sum of numbers rounded with the precision wanted
+        let result: Double = round(pow(10, precision)*numbers.reduce(0.0, +)) / pow(10, precision)
+
+        // Return the result in "String" and if the result "Double" could be a "Int" the convert to remove the decimal separator
+        
+        if result.truncatingRemainder(dividingBy: 1) == 0 {
+            return String(Int(result))
+        } else {
+            return String(result)
+        }
+
     }
     
     /// Put back in starting setup state
