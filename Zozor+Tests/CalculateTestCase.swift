@@ -69,6 +69,16 @@ class CalculateTestCase: XCTestCase {
         
         XCTAssertEqual(try calculate.total(), "0.3")
     }
+    /// Testing of addition and removing of .0
+    func testGivenNumberIs4Point0_WhenAdding4Point0_ThenResultIs8() {
+        calculate.stringNumbers = ["4.0"]
+        
+        calculate.operators.append("+")
+        calculate.stringNumbers.append("4.0")
+        
+        XCTAssertEqual(try calculate.total(), "8")
+    }
+    
     
     /// Testing of multiplication
     func testGivenNumberIs4Point2_WhenMultiplyBy4Point5_ThenResultIs8() {
@@ -152,24 +162,27 @@ class CalculateTestCase: XCTestCase {
         }
     }
     
-    /// Testing throw an error if we try to calculate with too big numbers
-    func testGiven10000000000000000000000000000_WhenAdding2_ThenTriggerNumberToBigError() {
-        calculate.stringNumbers = ["10000000000000000000000000000"]
+    /// Testing throw an error if the result is too big
+    func testGiven999999999999999_WhenMultiplyBy999999999999999_24Times_ThenTriggerResultToBigError() {
+        calculate.stringNumbers = ["999999999999999"]
         
-        calculate.operators.append("+")
-        calculate.stringNumbers.append("2")
-        
+        for _ in 1...24 {
+            calculate.operators.append("x")
+            calculate.stringNumbers.append("999999999999999")
+        }
+   
         XCTAssertThrowsError(try calculate.total()) { error in
-            XCTAssertEqual(error as! CalculateError, CalculateError.numberIsTooBig)
+            XCTAssertEqual(error as! CalculateError, CalculateError.resultIsTooBig)
         }
     }
-    
     /// Testing throw an error if the result is too big
-    func testGiven1000000000000_WhenMultiplyBy1000000000000_ThenTriggerNumberToBigError() {
-        calculate.stringNumbers = ["1000000000000"]
-        
-        calculate.operators.append("x")
-        calculate.stringNumbers.append("1000000000000")
+    func testGivenOperation1Substract999999999999999Multiply24Times_WhenCalculateTotal_ThenTriggerNumberToBigError() {
+        calculate.stringNumbers = ["1"]
+        calculate.operators.append("-")
+        for _ in 1...24 {
+            calculate.operators.append("x")
+            calculate.stringNumbers.append("999999999999999")
+        }
         
         XCTAssertThrowsError(try calculate.total()) { error in
             XCTAssertEqual(error as! CalculateError, CalculateError.resultIsTooBig)

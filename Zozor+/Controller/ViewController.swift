@@ -113,8 +113,6 @@ class ViewController: UIViewController {
             alertMessage("Démarrez un nouveau calcul !")
         } catch CalculateError.cantDivideBy0 {
             textView.text = textView.text + "\n=\nError\nDivide by 0"
-        } catch CalculateError.numberIsTooBig {
-            textView.text = textView.text + "\n=\nError\nNumber is too big to calculate"
         } catch CalculateError.resultIsTooBig {
             textView.text = textView.text + "\n=\nError\nResult is too big to calculate"
         } catch {

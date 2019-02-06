@@ -82,9 +82,18 @@ class Calculate {
     /// Add a number
     func addNewNumber(_ newNumber: Int) {
         if let stringNumber = stringNumbers.last {
-            var stringNumberMutable = stringNumber
-            stringNumberMutable += "\(newNumber)"
-            stringNumbers[stringNumbers.count-1] = stringNumberMutable
+            // Limit the lenght of the entered number
+            var stringNumberLenght = stringNumber.count
+            // Check if there is a decimal separator to adjust the lenght
+            if stringNumber.contains(".") {
+                stringNumberLenght += -1
+            }
+            // the limit of digit is decided here
+            if stringNumberLenght < 16 {
+                var stringNumberMutable = stringNumber
+                stringNumberMutable += "\(newNumber)"
+                stringNumbers[stringNumbers.count-1] = stringNumberMutable
+            }
         }
     }
     
@@ -97,15 +106,12 @@ class Calculate {
                 throw CalculateError.expressionIncorrect
             }
         }
+        
         var numbers: [Double] = [0]
-        let numberMax: Int = Int.max
+        var total: Double = 0
         // Calculate with priorities
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Double(stringNumber) {
-                // Check if number is a to big number and throw an error
-                guard number < Double(numberMax) else {
-                    throw CalculateError.numberIsTooBig
-                }
                 if let lastNumber = numbers.last {
                     if operators[i] == "+" {
                         numbers.append(number)
@@ -127,20 +133,24 @@ class Calculate {
         
         clear()
         
+        // The result of sum of numbers
+        total = numbers.reduce(0.0, +)
+        
+        // Check if result is a not a too big number and throw an error if it's the case
+        guard total.isFinite else {
+            throw CalculateError.resultIsTooBig
+        }
+        
         // The precision is the number of decimal after decimal separator
         let precision: Double = 9
         
         // The result of sum of numbers rounded with the precision wanted
-        let result: Double = round(pow(10, precision)*numbers.reduce(0.0, +)) / pow(10, precision)
-        // Check if result is a to big number and throw an error
-        guard result < Double(numberMax) else {
-            throw CalculateError.resultIsTooBig
-        }
+        let result: Double = round(pow(10, precision)*total) / pow(10, precision)
+
         
-        // Return the result in "String" and if the result "Double" could be a "Int" convert it to remove the decimal separator
-        
+        // Return the result in "String" and if it end by .0 remove it
         if result.truncatingRemainder(dividingBy: 1) == 0 {
-            return String(Int(result))
+            return String(result).replacingOccurrences(of: ".0", with: "")
         } else {
             return String(result)
         }
