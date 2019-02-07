@@ -175,6 +175,7 @@ class CalculateTestCase: XCTestCase {
             XCTAssertEqual(error as! CalculateError, CalculateError.resultIsTooBig)
         }
     }
+    
     /// Testing throw an error if the result is too big
     func testGivenOperation1Substract999999999999999Multiply24Times_WhenCalculateTotal_ThenTriggerNumberToBigError() {
         calculate.stringNumbers = ["1"]
@@ -187,5 +188,23 @@ class CalculateTestCase: XCTestCase {
         XCTAssertThrowsError(try calculate.total()) { error in
             XCTAssertEqual(error as! CalculateError, CalculateError.resultIsTooBig)
         }
+    }
+    
+    /// Testing if we have 16 digits in the last number we can't add another one
+    func testGiven16DigitInNumber_WhenAddingADigit_ThenTheNumberIsTheSame() {
+    calculate.stringNumbers = ["1234567890123456"]
+       
+        calculate.addNewNumber(7)
+        
+        XCTAssertEqual(calculate.stringNumbers.last!, "1234567890123456")
+    }
+    
+    /// Testing if we have 16 digits and a decimal separator in the last number we can't add another one
+    func testGiven16DigitAndDecimalSeparatorInNumber_WhenAddingADigit_ThenTheNumberIsTheSame() {
+        calculate.stringNumbers = ["12345678.90123456"]
+        
+        calculate.addNewNumber(7)
+        
+        XCTAssertEqual(calculate.stringNumbers.last!, "12345678.90123456")
     }
 }

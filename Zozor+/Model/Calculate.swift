@@ -147,7 +147,6 @@ class Calculate {
         // The result of sum of numbers rounded with the precision wanted
         let result: Double = round(pow(10, precision)*total) / pow(10, precision)
 
-        
         // Return the result in "String" and if it end by .0 remove it
         if result.truncatingRemainder(dividingBy: 1) == 0 {
             return String(result).replacingOccurrences(of: ".0", with: "")
